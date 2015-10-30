@@ -69,7 +69,7 @@ Hi3516D SDK
 RT3070 Linux Driver (in source code)
 
 Key steps:Modify kernel">
-<meta property="og:updated_time" content="2015-10-30T08:34:42.000Z">
+<meta property="og:updated_time" content="2015-10-30T08:42:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Compiling the RT3070 driver for Hi3516D">
 <meta name="twitter:description" content="It is a little bit tricky to cross-compile Hi3516d driver for Hi3516d. The following are some key modifications.
@@ -147,7 +147,7 @@ Key steps:Modify kernel">
             
               <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
             
-            Startseite
+            首頁
           </a>
         </li>
       
@@ -157,7 +157,7 @@ Key steps:Modify kernel">
             
               <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
             
-            Archiv
+            歸檔
           </a>
         </li>
       
@@ -167,7 +167,7 @@ Key steps:Modify kernel">
             
               <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
             
-            Tags
+            標籤
           </a>
         </li>
       
@@ -217,7 +217,7 @@ Key steps:Modify kernel">
 
         <div class="post-meta">
           <span class="post-time">
-            Veröffentlicht am
+            發表於
             <time itemprop="dateCreated" datetime="2015-10-30T15:32:14+08:00" content="2015-10-30">
               2015-10-30
             </time>
@@ -279,7 +279,7 @@ tar xzf $(OSDRV_DIR)/opensource/kernel/linux-<span class="number">3.4</span><spa
 <p>ifeq ($(PLATFORM),Hi3516d)<br>LINUX_SRC = ~/Hi3516A_SDK_040/osdrv/opensource/kernel/linux-3.4.y<br>CROSS_COMPILE = arm-hisiv300-linux-</p>
 </blockquote>
 </li>
-<li><p>Modify the $(RT28xx_DIR)/os/linux/config.mk<br><strong> Here is the most tricky part. You will have to use <code>-D__LINUX_ARM_ARCH__=7 -march=armv7-a</code> to get right binary format, and use <code>-mabi=aapcs-linux  -mfloat-abi=soft</code> to use EABI instead of OABI. You can find a good reference <a href="http://blog.chinaunix.net/uid-9672747-id-4779324.html" target="_blank" rel="external">here</a>.</strong></p>
+<li><p>Modify the $(RT28xx_DIR)/os/linux/config.mk<br><strong> Here is the most tricky part. You will have to use <code>-D__LINUX_ARM_ARCH__=7 -march=armv7-a</code> to get right binary format, and use <code>-mabi=aapcs-linux  -mfloat-abi=soft</code> to use EABI instead of OABI. You can find a good reference [here][0].</strong></p>
 <blockquote>
 <p>Enable the WPA supplicant:<br>  HAS_WPA_SUPPLICANT=y<br>  HAS_NATIVE_WPA_SUPPLICANT_SUPPORT=y<br>and add these lines:<br>  ifeq ($(PLATFORM),Hi3516d)<br>  #WFLAGS += -DRT_BIG_ENDIAN<br>  endif </p>
 <p>  ifeq ($(PLATFORM),Hi3516d)<br>  EXTRA_CFLAGS := -v $(WFLAGS) -I$(RT28xx_DIR)/include -D<strong>LINUX_ARM_ARCH</strong>=7 -march=armv7-a -mabi=aapcs-linux  -mfloat-abi=soft<br>  export EXTRA_CFLAGS<br>  endif</p>
@@ -299,7 +299,7 @@ tar xzf $(OSDRV_DIR)/opensource/kernel/linux-<span class="number">3.4</span><spa
 </li>
 <li>Done!</li>
 </ul>
-<p>#Ref</p>
+<h1 id="Ref">Ref</h1><p>[0]: <a href="http://blog.chinaunix.net/uid-9672747-id-4779324.html" target="_blank" rel="external">http://blog.chinaunix.net/uid-9672747-id-4779324.html</a>  ‘rt3070在dm365上的移植’</p>
 </span>
       
     </div>
@@ -374,10 +374,10 @@ tar xzf $(OSDRV_DIR)/opensource/kernel/linux-<span class="number">3.4</span><spa
       
         <ul class="sidebar-nav motion-element">
           <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            Inhaltsverzeichnis
+            文章目錄
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
-            Übersicht
+            本站概覽
           </li>
         </ul>
       
@@ -392,21 +392,21 @@ tar xzf $(OSDRV_DIR)/opensource/kernel/linux-<span class="number">3.4</span><spa
           <div class="site-state-item site-state-posts">
             <a href="/archives">
               <span class="site-state-item-count">2</span>
-              <span class="site-state-item-name">Artikel</span>
+              <span class="site-state-item-name">文章</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             
               <span class="site-state-item-count">0</span>
-              <span class="site-state-item-name">Kategorien</span>
+              <span class="site-state-item-name">分類</span>
               
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
               <span class="site-state-item-count">1</span>
-              <span class="site-state-item-name">Tags</span>
+              <span class="site-state-item-name">標籤</span>
               </a>
           </div>
 
@@ -437,7 +437,7 @@ tar xzf $(OSDRV_DIR)/opensource/kernel/linux-<span class="number">3.4</span><spa
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PREREQUISITE:"><span class="nav-number">1.</span> <span class="nav-text">PREREQUISITE:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Key_steps:"><span class="nav-number">2.</span> <span class="nav-text">Key steps:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Modify_kernel_configuration_file:"><span class="nav-number">2.1.</span> <span class="nav-text">Modify kernel configuration file:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compile_RT3070_driver"><span class="nav-number">2.2.</span> <span class="nav-text">Compile RT3070 driver</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PREREQUISITE:"><span class="nav-number">1.</span> <span class="nav-text">PREREQUISITE:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Key_steps:"><span class="nav-number">2.</span> <span class="nav-text">Key steps:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Modify_kernel_configuration_file:"><span class="nav-number">2.1.</span> <span class="nav-text">Modify kernel configuration file:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compile_RT3070_driver"><span class="nav-number">2.2.</span> <span class="nav-text">Compile RT3070 driver</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ref"><span class="nav-number"></span> <span class="nav-text">Ref</span></a></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
@@ -466,11 +466,11 @@ tar xzf $(OSDRV_DIR)/opensource/kernel/linux-<span class="number">3.4</span><spa
 </div>
 
 <div class="powered-by">
-  Erstellt mit  <a class="theme-link" href="http://hexo.io">Hexo</a>
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 強力驅動
 </div>
 
 <div class="theme-info">
-  Theme -
+  主題 -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT
   </a>
