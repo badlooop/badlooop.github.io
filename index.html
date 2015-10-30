@@ -286,9 +286,9 @@ tar xzf $(OSDRV_DIR)/opensource/kernel/linux-<span class="number">3.4</span><spa
 <p>ifeq ($(PLATFORM),Hi3516d)<br>LINUX_SRC = ~/Hi3516A_SDK_040/osdrv/opensource/kernel/linux-3.4.y<br>CROSS_COMPILE = arm-hisiv300-linux-</p>
 </blockquote>
 </li>
-<li><p>Modify the $(RT28xx_DIR)/os/linux/config.mk<br><strong> Here is the most tricky part. You will have to use <code>-D__LINUX_ARM_ARCH__=7 -march=armv7-a</code> to get right binary format, and use <code>-mabi=aapcs-linux  -mfloat-abi=soft</code> to use EABI instead of OABI. You can find a good reference [here][0].</strong></p>
+<li><p>Modify the $(RT28xx_DIR)/os/linux/config.mk<br><strong> Here is the most tricky part. You will have to use <code>-D__LINUX_ARM_ARCH__=7 -march=armv7-a</code> to get right binary format, and use <code>-mabi=aapcs-linux  -mfloat-abi=soft</code> to use EABI instead of OABI. You can find a good reference [here][0].</strong><br>Otherwise you will get:</p>
 <blockquote>
-<p>Enable the WPA supplicant:<br>  HAS_WPA_SUPPLICANT=y<br>  HAS_NATIVE_WPA_SUPPLICANT_SUPPORT=y<br>and add these lines:<br>  ifeq ($(PLATFORM),Hi3516d)<br>  #WFLAGS += -DRT_BIG_ENDIAN<br>  endif </p>
+<p>Unable to handle kernel NULL pointer dereference at virtual address 00000028<br>config.mk:<br>Enable the WPA supplicant:<br>  HAS_WPA_SUPPLICANT=y<br>  HAS_NATIVE_WPA_SUPPLICANT_SUPPORT=y<br>and add these lines:<br>  ifeq ($(PLATFORM),Hi3516d)<br>  #WFLAGS += -DRT_BIG_ENDIAN<br>  endif </p>
 <p>  ifeq ($(PLATFORM),Hi3516d)<br>  EXTRA_CFLAGS := -v $(WFLAGS) -I$(RT28xx_DIR)/include -D<strong>LINUX_ARM_ARCH</strong>=7 -march=armv7-a -mabi=aapcs-linux  -mfloat-abi=soft<br>  export EXTRA_CFLAGS<br>  endif</p>
 </blockquote>
 </li>
