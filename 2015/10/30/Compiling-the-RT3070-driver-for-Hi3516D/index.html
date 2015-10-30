@@ -69,7 +69,7 @@ Hi3516D SDK
 RT3070 Linux Driver (in source code)
 
 Key steps:">
-<meta property="og:updated_time" content="2015-10-30T07:55:41.000Z">
+<meta property="og:updated_time" content="2015-10-30T08:27:25.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Compiling the RT3070 driver for Hi3516D">
 <meta name="twitter:description" content="Because of the lack of reference, it took me 3 days to get RT3070 works on Hi3516D. The following are some key modifications.
@@ -247,17 +247,45 @@ Key steps:">
 <li>Hi3516D SDK</li>
 <li>RT3070 Linux Driver (in source code)</li>
 </ul>
-<h2 id="Key_steps:">Key steps:</h2><ul>
+<h2 id="Key_steps:">Key steps:</h2><h3 id="Modify_kernel_configuration_file:">Modify kernel configuration file:</h3><ul>
 <li>Setup cross-compiling environment, including PATH</li>
 <li>Compiling <em>osdrv</em> folder under <hi3516d_sdk></hi3516d_sdk></li>
-<li>Modify the Makefile in <em>osdrv</em> folder<blockquote>
+<li><p>Modify the Makefile in <em>osdrv</em> folder</p>
+<blockquote>
 <p>Delete these two lines:</p>
 <pre><code>rm $(OSDRV_DIR)/opensource/kernel/linux-<span class="number">3.4</span><span class="class">.y</span> -rf
 tar xzf $(OSDRV_DIR)/opensource/kernel/linux-<span class="number">3.4</span><span class="class">.y</span><span class="class">.tgz</span> -C $(OSDRV_DIR)/opensource/kernel/
-</code></pre><p>Because we need to modify the kernel compiling configuration file to support USB wlan driver, we have to toggle off these two lines.</p>
+</code></pre><p>Because we need to modify the kernel compiling configuration file to support USB wlan driver, we have to toggle off these two lines.<br>Modify the KERNEL_CFG to hi3516a_full_defconfig<br>export KERNEL_CFG:=hi3516a_full_defconfig</p>
+</blockquote>
+</li>
+<li><p>Change the kernal compiling configuration</p>
+<blockquote>
+<p>cd #rm $(OSDRV_DIR)/opensource/kernel/linux-3.4.y<br>make menuconfig<br>load the configuration file from /arch/arm/configs/hi3516a_full_defconfig<br>go to <em>Device Driver</em> -&gt; <em>Network device support</em> -&gt; <em>Wireless LAN</em>, and enable the <em>USB ZD1201 based Wireless device support</em><br>save the configuration file</p>
+</blockquote>
+</li>
+<li><p>re-compile the osdrv</p>
+<blockquote>
+<p>cd $(OSDRV_DIR)<br>make OSDRV_CROSS=arm-hisiv300-linux all</p>
 </blockquote>
 </li>
 </ul>
+<h3 id="Compile_RT3070_driver">Compile RT3070 driver</h3><ul>
+<li>Decompress tar.gz file </li>
+<li>Change the CHIPSET to 3070<blockquote>
+<p>CHIPSET = 3070</p>
+</blockquote>
+</li>
+<li>Create a new platform: Hi3516d<blockquote>
+<p>ifeq ($(PLATFORM),Hi3516d)<br>LINUX_SRC = ~/Hi3516A_SDK_040/osdrv/opensource/kernel/linux-3.4.y<br>CROSS_COMPILE = arm-hisiv300-linux-</p>
+</blockquote>
+</li>
+<li>Modify the $(RT28xx_DIR)/os/linux/config.mk<br>** Here is the most tricky part. You will have to use <code>-D__LINUX_ARM_ARCH__=7 -march=armv7-a</code> to get right binary format, and use <code>-mabi=aapcs-linux  -mfloat-abi=soft</code> to use EABI instead of OABI. You can find a good reference <a href="http://blog.chinaunix.net/uid-9672747-id-4779324.html" target="_blank" rel="external">here</a>.<blockquote>
+<p>Enable the WPA supplicant:<br>  HAS_WPA_SUPPLICANT=y<br>  HAS_NATIVE_WPA_SUPPLICANT_SUPPORT=y<br>and add these lines:<br>  ifeq ($(PLATFORM),Hi3516d)<br>  #WFLAGS += -DRT_BIG_ENDIAN<br>  endif </p>
+<p>  ifeq ($(PLATFORM),Hi3516d)<br>  EXTRA_CFLAGS := -v $(WFLAGS) -I$(RT28xx_DIR)/include -D<strong>LINUX_ARM_ARCH</strong>=7 -march=armv7-a -mabi=aapcs-linux  -mfloat-abi=soft<br>  export EXTRA_CFLAGS<br>  endif</p>
+</blockquote>
+</li>
+</ul>
+<p>#Ref</p>
 </span>
       
     </div>
@@ -395,7 +423,7 @@ tar xzf $(OSDRV_DIR)/opensource/kernel/linux-<span class="number">3.4</span><spa
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PREREQUISITE:"><span class="nav-number">1.</span> <span class="nav-text">PREREQUISITE:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Key_steps:"><span class="nav-number">2.</span> <span class="nav-text">Key steps:</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PREREQUISITE:"><span class="nav-number">1.</span> <span class="nav-text">PREREQUISITE:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Key_steps:"><span class="nav-number">2.</span> <span class="nav-text">Key steps:</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Modify_kernel_configuration_file:"><span class="nav-number">2.1.</span> <span class="nav-text">Modify kernel configuration file:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Compile_RT3070_driver"><span class="nav-number">2.2.</span> <span class="nav-text">Compile RT3070 driver</span></a></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
