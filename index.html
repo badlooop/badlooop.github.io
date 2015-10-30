@@ -286,11 +286,25 @@ tar xzf $(OSDRV_DIR)/opensource/kernel/linux-<span class="number">3.4</span><spa
 <p>ifeq ($(PLATFORM),Hi3516d)<br>LINUX_SRC = ~/Hi3516A_SDK_040/osdrv/opensource/kernel/linux-3.4.y<br>CROSS_COMPILE = arm-hisiv300-linux-</p>
 </blockquote>
 </li>
-<li>Modify the $(RT28xx_DIR)/os/linux/config.mk<br>** Here is the most tricky part. You will have to use <code>-D__LINUX_ARM_ARCH__=7 -march=armv7-a</code> to get right binary format, and use <code>-mabi=aapcs-linux  -mfloat-abi=soft</code> to use EABI instead of OABI. You can find a good reference <a href="http://blog.chinaunix.net/uid-9672747-id-4779324.html" target="_blank" rel="external">here</a>.<blockquote>
+<li><p>Modify the $(RT28xx_DIR)/os/linux/config.mk<br><strong> Here is the most tricky part. You will have to use <code>-D__LINUX_ARM_ARCH__=7 -march=armv7-a</code> to get right binary format, and use <code>-mabi=aapcs-linux  -mfloat-abi=soft</code> to use EABI instead of OABI. You can find a good reference <a href="http://blog.chinaunix.net/uid-9672747-id-4779324.html" target="_blank" rel="external">here</a>.</strong></p>
+<blockquote>
 <p>Enable the WPA supplicant:<br>  HAS_WPA_SUPPLICANT=y<br>  HAS_NATIVE_WPA_SUPPLICANT_SUPPORT=y<br>and add these lines:<br>  ifeq ($(PLATFORM),Hi3516d)<br>  #WFLAGS += -DRT_BIG_ENDIAN<br>  endif </p>
 <p>  ifeq ($(PLATFORM),Hi3516d)<br>  EXTRA_CFLAGS := -v $(WFLAGS) -I$(RT28xx_DIR)/include -D<strong>LINUX_ARM_ARCH</strong>=7 -march=armv7-a -mabi=aapcs-linux  -mfloat-abi=soft<br>  export EXTRA_CFLAGS<br>  endif</p>
 </blockquote>
 </li>
+<li><p>Make it!</p>
+<blockquote>
+<p>make ARCH=arm</p>
+</blockquote>
+</li>
+<li><p>Copy the rt3070sta.ko file to your board. </p>
+</li>
+<li>Copy the <strong>RT2870STA.dat</strong> to <strong>/etc/Wireless/RT2870STA/</strong></li>
+<li>Insert the kernal module<blockquote>
+<p>insmod rt3070sta.ko</p>
+</blockquote>
+</li>
+<li>Done!</li>
 </ul>
 <p>#Ref</p>
 
