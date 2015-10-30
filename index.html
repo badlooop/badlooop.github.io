@@ -249,7 +249,23 @@
         
           <span itemprop="articleBody">
             
-              
+              <p>Because of the lack of reference, it took me 3 days to get RT3070 works on Hi3516D. The following are some key modifications.</p>
+<h2 id="PREREQUISITE:">PREREQUISITE:</h2><ul>
+<li>Hi3516D SDK</li>
+<li>RT3070 Linux Driver (in source code)</li>
+</ul>
+<h2 id="Key_steps:">Key steps:</h2><ul>
+<li>Setup cross-compiling environment, including PATH</li>
+<li>Compiling <em>osdrv</em> folder under <hi3516d_sdk></hi3516d_sdk></li>
+<li>Modify the Makefile in <em>osdrv</em> folder<blockquote>
+<p>Delete these two lines:</p>
+<pre><code>rm $(OSDRV_DIR)/opensource/kernel/linux-<span class="number">3.4</span><span class="class">.y</span> -rf
+tar xzf $(OSDRV_DIR)/opensource/kernel/linux-<span class="number">3.4</span><span class="class">.y</span><span class="class">.tgz</span> -C $(OSDRV_DIR)/opensource/kernel/
+</code></pre><p>Because we need to modify the kernel compiling configuration file to support USB wlan driver, we have to toggle off these two lines.</p>
+</blockquote>
+</li>
+</ul>
+
             
           </span>
         

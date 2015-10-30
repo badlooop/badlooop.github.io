@@ -53,16 +53,31 @@
 
 
 
-<meta name="description">
+<meta name="description" content="Because of the lack of reference, it took me 3 days to get RT3070 works on Hi3516D. The following are some key modifications.
+PREREQUISITE:
+Hi3516D SDK
+RT3070 Linux Driver (in source code)
+
+Key steps:">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Compiling the RT3070 driver for Hi3516D">
 <meta property="og:url" content="http://yoursite.com/2015/10/30/Compiling-the-RT3070-driver-for-Hi3516D/index.html">
 <meta property="og:site_name" content="next">
-<meta property="og:description">
-<meta property="og:updated_time" content="2015-10-30T07:33:31.000Z">
+<meta property="og:description" content="Because of the lack of reference, it took me 3 days to get RT3070 works on Hi3516D. The following are some key modifications.
+PREREQUISITE:
+Hi3516D SDK
+RT3070 Linux Driver (in source code)
+
+Key steps:">
+<meta property="og:updated_time" content="2015-10-30T07:55:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Compiling the RT3070 driver for Hi3516D">
-<meta name="twitter:description">
+<meta name="twitter:description" content="Because of the lack of reference, it took me 3 days to get RT3070 works on Hi3516D. The following are some key modifications.
+PREREQUISITE:
+Hi3516D SDK
+RT3070 Linux Driver (in source code)
+
+Key steps:">
 
 
 
@@ -227,7 +242,23 @@
       
 
       
-        <span itemprop="articleBody"></span>
+        <span itemprop="articleBody"><p>Because of the lack of reference, it took me 3 days to get RT3070 works on Hi3516D. The following are some key modifications.</p>
+<h2 id="PREREQUISITE:">PREREQUISITE:</h2><ul>
+<li>Hi3516D SDK</li>
+<li>RT3070 Linux Driver (in source code)</li>
+</ul>
+<h2 id="Key_steps:">Key steps:</h2><ul>
+<li>Setup cross-compiling environment, including PATH</li>
+<li>Compiling <em>osdrv</em> folder under <hi3516d_sdk></hi3516d_sdk></li>
+<li>Modify the Makefile in <em>osdrv</em> folder<blockquote>
+<p>Delete these two lines:</p>
+<pre><code>rm $(OSDRV_DIR)/opensource/kernel/linux-<span class="number">3.4</span><span class="class">.y</span> -rf
+tar xzf $(OSDRV_DIR)/opensource/kernel/linux-<span class="number">3.4</span><span class="class">.y</span><span class="class">.tgz</span> -C $(OSDRV_DIR)/opensource/kernel/
+</code></pre><p>Because we need to modify the kernel compiling configuration file to support USB wlan driver, we have to toggle off these two lines.</p>
+</blockquote>
+</li>
+</ul>
+</span>
       
     </div>
 
@@ -364,7 +395,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目錄</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#PREREQUISITE:"><span class="nav-number">1.</span> <span class="nav-text">PREREQUISITE:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Key_steps:"><span class="nav-number">2.</span> <span class="nav-text">Key steps:</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator">
