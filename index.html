@@ -241,21 +241,18 @@
           <span itemprop="articleBody">
             
               <p>因为最近涉及到大量的嵌入式开发以及ROS机器人平台的开发，开始尝试将最近火热的Docker技术引入嵌入式和机器人开发中来。Docker容器具有良好的可迁移性及极高的性能，又能在现有的系统上起到一定的隔离作用。</p>
-<p>####嵌入式开发：</p>
-<ul>
+<h4 id="嵌入式开发：">嵌入式开发：</h4><ul>
 <li>工具链配好，commit一次便可一劳永逸，换电脑亦可继续使用</li>
 <li>良好地保护了宿主系统，完全防止开发人员忘记修改PREFIX环境变量，运行make install之后导致的系统崩溃</li>
 <li>可以利用Docker Hub进行工具链共享</li>
 </ul>
-<p>####ROS：</p>
-<ul>
+<h4 id="ROS：">ROS：</h4><ul>
 <li>良好的迁移性让开发者可以在不同机器人所搭载的PC上共享同样的ROS环境（当然，宿主系统得相同）</li>
 <li>多个版本的ROS可以各在一个容器中，互不干涉</li>
 <li>IO性能远高于虚拟机，特别是对于RGBD摄像头等大数据量的硬件设备来说，Docker能提供和原生系统一致的IO性能</li>
 <li>（不确定）能支持GPU，对于CUDA用户和深度学习玩家来说将会非常有用 （StackoverFlow说支持，暂时未能测试）</li>
 </ul>
-<p>##To be continued…</p>
-
+<h2 id="To_be_continued…">To be continued…</h2>
             
           </span>
         
