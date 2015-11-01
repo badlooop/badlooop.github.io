@@ -275,6 +275,13 @@
 <p>curl -sSL <a href="https://get.daocloud.io/docker" target="_blank" rel="external">https://get.daocloud.io/docker</a> | sh</p>
 </blockquote>
 <p>Docker的简单入门教程在 [<a href="http://docker.widuu.com" target="_blank" rel="external">http://docker.widuu.com</a>]</p>
+<p>ROS的镜像已经好事者提交到Docker Hub了，我们只需要加载即可：<br>官方镜像：<br><a href="https://hub.docker.com/_/ros/" target="_blank" rel="external">https://hub.docker.com/_/ros/</a></p>
+<p>因为我的项目中要用到Project Tango，现成的包是基于ROS Hydro开发的，所以我使用了Harmishhk提交的这个包。里面包含了多个版本的ROS<br><a href="https://hub.docker.com/r/harmishhk/ros/" target="_blank" rel="external">https://hub.docker.com/r/harmishhk/ros/</a></p>
+<p>直接在Terminal中输入：</p>
+<blockquote>
+<p>sudo docker run -t -i -v /tmp/.X11-unix:/tmp/.X11-unix:ro -e DISPLAY=$DISPLAY [image名字]:[tag]</p>
+</blockquote>
+<p>加入<code>-v /tmp/.X11-unix:/tmp/.X11-unix:ro -e DISPLAY=$DISPLAY</code> 这两个参数是为了让Docker连接上宿主机的X server，这样的话就可以用rviz等GUI工具了。 参考说明: [<a href="https://groups.google.com/forum/#!topic/etetoolkit/4SrZk5fRtCM" target="_blank" rel="external">https://groups.google.com/forum/#!topic/etetoolkit/4SrZk5fRtCM</a>]</p>
 <h2 id="To_be_continued…">To be continued…</h2>
             
           </span>
